@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+<head>
+  <title>ЛАБОРАТОРНАЯ Тема....</title>
+  <meta charset="utf-8">
+  <!--  пример загрузки таблиц стилей для поддержки bootstrap
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  --> 
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+
+ <!-- Загрузим свои скрипты на js (если есть таковые...) 
+ <script src="./js/main.js"></script>
+ -->
+</head>
+<body >
+<div id="rectangle"></div>
+<div id="result"></div>
+<div id="result2"></div>
+
+
+<script>
+$("#rectangle").click(function(e){
+var xClick = e.pageX - $(this).offset().left;
+var yClick = e.pageY - $(this).offset().top;
+ //alert('X = '+ xClick +' Y= ' +yClick);
+ $('#result').html('X = '+ xClick +' Y= ' +yClick);
+ $.ajax({
+      url: '/myfunc',
+      type: "post",
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({ x: xClick, y: yClick}),
+      dataType: 'json',
+      success: function(result) {
+	
+        $('#result2').html('P = '+ result.R);
+	
+        },
+     });      
+});
+</script>
+
+</body>
+</html>
